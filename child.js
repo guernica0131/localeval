@@ -1,14 +1,1 @@
-// Thaddée Tyl <thaddee.tyl@gmail.com>. License: CC-BY v3.
-var vm = require('vm');
-
-process.on('message', function(m) {
-  try {
-    process.send({
-      result: vm.runInNewContext(m.code, m.sandbox)
-    });
-  } catch(e) {
-    process.send({
-      error: {name: e.name, message: e.message, stack: e.stack}
-    });
-  }
-});
+﻿// Thaddée Tyl <thaddee.tyl@gmail.com>. License: CC-BY v3.var vm = require('vm'),// change    sails = require('sails'),    ss = require('simple-statistics'),    mathjs = require('mathjs'),    math = mathjs(),    _ = require('underscore'),    S = require('string');// end changeprocess.on('message', function(m) {     // Change made    var extras = {        ss: ss, // simple statistics        math: math, // math.js        S: S, // String        _: _, // underscore        log: sails.log // logging    };    _.extend(m.sandbox, extras);    // end change  try {    process.send({      result: vm.runInNewContext(m.code, m.sandbox)    });  } catch(e) {    process.send({      error: {name: e.name, message: e.message, stack: e.stack}    });  }});
